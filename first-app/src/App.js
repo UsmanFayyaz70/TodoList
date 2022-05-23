@@ -1,20 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-
+import React, { useEffect, useState } from 'react';
+import Header from './Components/Header'
 function App() {
+
   return (
-    <>
-    <div className = "App">
-    <Header tryout = "Hello"/>  
-    <img src = {logo} className="App-logo" ></img>
-    <Footer item = "logo"/>
+    <div className='App'>
+      <Header/>
     </div>
-    </>
-  );
+  )
 }
 
-export default App;
+export default App
