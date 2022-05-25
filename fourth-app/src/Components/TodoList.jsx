@@ -4,7 +4,7 @@ const TodoList = (props) => {
     // console.log(props.todoItem,"String")
   return (
     <div className='App'>
-       <Todo onClick = {props.onClick} todoItem={props.todoItem}/>
+       <Todo onSubmit={props.onSubmit} onClick = {props.onClick} todoItem={props.todoItem}/>
 
       
     </div>

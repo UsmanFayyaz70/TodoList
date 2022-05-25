@@ -1,27 +1,44 @@
 import './App.css';
-import Header from './Components/Header'
-import Footer from './Components/Footer'
-import TodoList from './Components/TodoList'
-import {useState} from "react";
+import { Row, Col, Input, Button } from "antd";
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import TodoList from './Components/TodoList';
+import AbcDesign from './Container/index';
+import { useState } from "react";
 
 function App() {
-  const addTodo = (ntask, time) => {
+  const [edit, setEdit] = useState(false);
+  const [obj, setObj] = useState({
+  });
+  const editBtn = (todoItem) => {
+    setEdit(true);
+    setObj(todoItem);
+    // console.log(obj,"Function");
+    // console.log(handleArr,"Function");
+  }
+
+  const addTodo = (task, time) => {
+    setEdit(false);
     const arrkey = todo.length + 1;
-    let nArr =  {
-      key: arrkey,
-      task: ntask,
-      time: time
-    };
-    console.log(nArr);
-    setTodo([...todo,nArr]);
+    setTodo(
+      [
+        ...todo,
+        {
+          key: arrkey,
+          description: task,
+          time: time
+        }
+      ]
+    );
     alert("New todo added!");
   }
-  const btnPressed = (todoItem) =>{
-  console.log(todoItem,"App STRING");
-    setTodo(todo.filter((todo)=>{
-      return todo!==todoItem 
+  const btnPressed = (todoItem) => {
+    setEdit(false);
+    console.log(todoItem, "App STRING");
+    setTodo(todo.filter((todo) => {
+      return todo !== todoItem
     }));
-}
+  }
 
   const [todo, setTodo] = useState([
     {
@@ -41,14 +58,19 @@ function App() {
     }
   ]);
 
-      return(
-      <>
-      <Header/>
-      <TodoList todoItem = {todo} key = {todo.key} onClick = {btnPressed}/>
-      <Footer addTodo = {addTodo}/> 
-      </>
-  
-      )
+  return (
+    <>
+    <Row>
+      <Col xl={24} xs={24} md={24} lg = {24}>
+        <AbcDesign />
+        <Header />
+        <TodoList onSubmit={editBtn} todoItem={todo} key={todo.key} onClick={btnPressed} />
+        <Footer handleArr={obj} edit={edit} editBtn={editBtn} addTodo={addTodo} />
+      </Col>
+    </Row>
+    </>
+
+  )
 }
 
 export default App;
