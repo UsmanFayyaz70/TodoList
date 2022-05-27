@@ -4,7 +4,14 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import TodoList from './Components/TodoList';
 // import AbcDesign from './Container/index';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import About from './Components/About';
 
 function App() {
   const [edit, setEdit] = useState(false);
@@ -17,18 +24,27 @@ function App() {
   }
 
   const addTodo = (task, time) => {
+    const found = todo.filter((todo)=>{
+      return todo.description === task && todo.time === time
+    });
+    console.log(found,"Found");
     if (edit) {
       // alert("Edit krne lage hoo!"+ task);
-      const index = selectedItem.key - 1;
-      // console.log(index)
-      const newArr = [...todo];
-      newArr[index].description = task;
-      newArr[index].time = time;
-      // newArr.splice(index, 1, { ...selectedItem, description: task, time });
-      console.log('newArsr', task)
-      setTodo(newArr);
-      setEdit(false);
+      if(found.length=== 0) 
+       {
+        const index = selectedItem.key - 1;
+        // console.log(index)
+        const newArr = [...todo];
+        newArr[index].description = task;
+        newArr[index].time = time;
+        // newArr.splice(index, 1, { ...selectedItem, description: task, time });
+        console.log('newArsr', task)
+        setTodo(newArr);
+        setEdit(false);
         } else {
+          alert("You can not add a task twice!");
+              }
+    } else if(found.length===0){
       setEdit(false);
       const arrkey = todo.length + 1;
       setTodo(
@@ -42,6 +58,7 @@ function App() {
         ]
       );
       alert("New todo added!");
+      localStorage.setItem('localItems', JSON.stringify(todo));
     }
   }
   const btnPressed = (todoItem) => {
@@ -56,31 +73,30 @@ function App() {
     {
       key: 1,
       description: "Get Coffee",
-      time: "9:00"
+      time: "09:00"
     },
     {
       key: 2,
       description: "Get a walk",
-      time: "9:00"
+      time: "09:00"
     },
     {
       key: 3,
       description: "Get Tea",
-      time: "9:00"
+      time: "09:00"
     }
   ]);
-  console.log(todo);
+  useEffect(()=>{
+    const items = localStorage.getItem(JSON.stringify('todo'));
+    if(items){
+      setTodo(todo);
+    }
+  })
   return (
     <>
-      <Row>
-        <Col xl={24} xs={24} md={24} lg={24}>
-          <Row>
-            <Col span={24} xl={24} xs={24} md={24} lg={24}><Header /></Col>
-          </Row>
+          <Header todo = {todo}/>    
           <TodoList onSubmit={editBtn} todoItem={todo} key={todo.key} onClick={btnPressed} />
-          <Footer handleArr={selectedItem} edit={edit} editBtn={editBtn} addTodo={addTodo} />
-        </Col>
-      </Row>
+          <Footer handleArr={selectedItem} edit={edit} editBtn={editBtn} addTodo={addTodo} />    
     </>
 
   )
