@@ -1,0 +1,70 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+label {
+  font-size: 1.5em;
+}
+#title{
+  color:white;
+}
+input[type=checkbox]:checked+label {
+  color: red;
+  text-decoration: line-through;
+  margin-bottom: 12px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.span {
+  color: white;
+  display: inline-flex;
+  width: 125px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden !important;
+}
+
+.App-header {
+  background-image: url(../wave.svg);
+  background-repeat: repeat-x;
+  background-position: bottom;
+  /* background-color: #282c34; */
+  min-height: 100vh;
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+
+}
+
+.labels {
+  font: "Times-new-roman";
+  font-size: 16px;
+}
+
+.taskButtons{
+  /* border: solid red; */
+  display: inline-table;
+  justify-content: flex-start;
+}
+
+.sub {
+  margin-top: auto;
+  margin-bottom: auto;
+}
